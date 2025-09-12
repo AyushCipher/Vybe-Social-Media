@@ -6,19 +6,21 @@ import { setFollowing, setUserData } from '../redux/userSlice'
 import { setCurrentUserStory } from '../redux/storySlice'
 
 function getCurrentUser() {
-    const dispatch=useDispatch()
-    const {storyData}=useSelector(state=>state.story)
+  const dispatch=useDispatch()
+  const {storyData}=useSelector(state=>state.story)
+
   useEffect(()=>{
-const fetchUser=async ()=>{
+    const fetchUser=async ()=>{
     try {
-        const result=await axios.get(`${serverUrl}/api/user/current`,{withCredentials:true})
-         dispatch(setUserData(result.data))
-         dispatch(setCurrentUserStory(result.data.story))
+      const result = await axios.get(`${serverUrl}/api/user/current`,{withCredentials:true})
+      dispatch(setUserData(result.data))
+      dispatch(setCurrentUserStory(result.data.story))
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-}
-fetchUser()
+  }
+
+  fetchUser()
   },[storyData])
 }
 

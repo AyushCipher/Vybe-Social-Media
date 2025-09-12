@@ -1,0 +1,28 @@
+{
+  "version": 3,
+  "builds": [
+    {
+      "src": "client/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "build" }
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/$1.js" },
+    { "src": "/(.*)", "dest": "/client/build/$1" }
+  ],
+  "env": {
+    "MONGODB_URL": "mongodb+srv://ayushv3533e:BfPgsgoeWyL3QFsr@cluster0.icil9rz.mongodb.net/socialMedia?retryWrites=true&w=majority&tls=true",
+    "JWT_SECRET": "KJMHBKJA",
+    "EMAIL": "vybe6198@gmail.com",
+    "EMAIL_PASS": "wlto dhbw ggbo hcxk",
+    "CLOUDINARY_CLOUD_NAME": "dctxz30bx",
+    "CLOUDINARY_API_KEY": "475851343712346",
+    "CLOUDINARY_API_SECRET": "HLEAE3ePZlpV27oiXe6l579LxcE"
+  }
+}
+

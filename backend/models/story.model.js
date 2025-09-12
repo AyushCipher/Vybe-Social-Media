@@ -5,7 +5,7 @@ const storySchema=new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true
-        },
+    },
     mediaType:{
         type:String,
         enum:["image","video"],
