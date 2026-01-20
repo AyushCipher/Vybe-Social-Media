@@ -25,8 +25,8 @@ import Search from './pages/Search'
 import getAllNotifications from './hooks/getAllNotifications'
 import Notifications from './pages/Notifications'
 import { setNotificationData } from './redux/userSlice'
-export const serverUrl="https://vybe-backend-zbzr.onrender.com"
-
+import NotFound from './pages/NotFound'
+export const serverUrl="http://localhost:8000"
 
 function App() {
   getCurrentUser()
@@ -38,7 +38,7 @@ function App() {
   getPrevChatUsers()
   getAllNotifications()
   
-  const {userData,notificationData}=useSelector(state=>state.user)
+  const {userData, notificationData} = useSelector(state=>state.user)
    
   const {socket}=useSelector(state=>state.socket)
   const dispatch=useDispatch()
@@ -47,20 +47,18 @@ function App() {
     if(userData){
       const socketIo=io(`${serverUrl}`,{
         query:{
-          userId:userData._id
+          userId: userData._id
         }
       })
-  dispatch(setSocket(socketIo))
+      dispatch(setSocket(socketIo))
 
+      socketIo.on('getOnlineUsers',(users)=>{
+        dispatch(setOnlineUsers(users))
+        console.log(users)
+      })
 
-  socketIo.on('getOnlineUsers',(users)=>{
-    dispatch(setOnlineUsers(users))
-    console.log(users)
-  })
-
-
-  return ()=>socketIo.close()
-    }else{
+      return () => socketIo.close()
+    } else {
       if(socket){
         socket.close()
         dispatch(setSocket(null))
@@ -88,6 +86,7 @@ function App() {
       <Route path='/messageArea' element={userData?<MessageArea/>:<Navigate to={"/signin"}/>}/>
       <Route path='/notifications' element={userData?<Notifications/>:<Navigate to={"/signin"}/>}/>
       <Route path='/loops' element={userData?<Loops/>:<Navigate to={"/signin"}/>}/>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
