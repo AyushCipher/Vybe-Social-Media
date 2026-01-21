@@ -26,7 +26,7 @@ import getAllNotifications from './hooks/getAllNotifications'
 import Notifications from './pages/Notifications'
 import { setNotificationData } from './redux/userSlice'
 import NotFound from './pages/NotFound'
-export const serverUrl="http://localhost:8000"
+export const serverUrl="https://vybe-backend-zbzr.onrender.com"
 
 function App() {
   getCurrentUser()
