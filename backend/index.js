@@ -15,7 +15,7 @@ dotenv.config()
 const port=process.env.PORT || 5000
 
 app.use(cors({
-    origin:"https://vybe-backend-zbzr.onrender.com",
+    origin:"https://vybe-frontend-bfo3.onrender.com",
     credentials:true
 }))
 
